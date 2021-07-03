@@ -1,1 +1,0 @@
-# demo-project2-frontend
