@@ -12,4 +12,7 @@ export default class UserService{
     addPicture(file, id){
         return axios.put("http://localhost:8081/addPicture/userId?id="+ id,file)
     }
+    deleteUser(id){
+        return axios.put("http://localhost:8081/api/users/deleteUser?id="+id)
+    }
 }

@@ -36,7 +36,6 @@ export const UserRegister = () => {
             firstName: '',
             lastName: '',
             phoneNumber: '',
-            picture: '',
             accept: (false),
 
         },
@@ -185,20 +184,11 @@ export const UserRegister = () => {
                             </span>
                             {getFormErrorMessage('picture')}
                         </div>
-                        <div className="p-field p-col-6 p-my-3 ">
-                            <span className="p-float-label">
-                                {/* <InputText id="pictureURL" name="pictureURL" value={formik.values.pictureURL} onChange={formik.handleChange} toggleMask 
-
-                                className={classNames("p-mx-1", { 'p-invalid': isFormFieldValid('picture') })} /> */}
-                                <FileUpload className = "p-mt-5" mode="basic" name="picture" url={userService.addPicture(user.id)} accept="image/*" maxFileSize={1000000} onUpload={onBasicUpload} />
-                                <label htmlFor="picture" className={classNames({ 'p-error': isFormFieldValid('picture') })}>Fotoğraf</label>
-                            </span>
-                            {getFormErrorMessage('picture')}
-                        </div>
+                        
 
 
 
-                        <div className="p-field-checkbox p-col-6 p-offset-5 ">
+                        <div className="p-field-checkbox p-ml-4 p-mt-3 p-col-3 ">
                             <Checkbox inputId="accept" name="accept" checked={formik.values.accept} onChange={formik.handleChange} className={classNames({ 'p-invalid': isFormFieldValid('accept') })} />
                             <label htmlFor="accept" className={classNames({ 'p-error': isFormFieldValid('accept') })}>Kabul Ediyorum</label>
                         </div>
