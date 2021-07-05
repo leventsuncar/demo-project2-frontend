@@ -15,7 +15,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  height: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,4 +35,38 @@
   to {
     transform: rotate(360deg);
   }
+}
+.table-header {
+  display: flex;
+  justify-content: space-between;
+}
+.form-demo .card {
+  min-width: 450px;
+}
+.form-demo .card form {
+  margin-top: 2rem;
+}
+.form-demo .card .p-field {
+  margin:auto;
+}
+
+  .user-add .my-form .card {
+      width: 95%;
+      
+    
+  }
+
+
+
+.user-add .my-form{
+  width: 80%;
+  height: 500px;
+  align-items: center;
+  margin: auto;
+  
+}
+
+.p-datatable-sm .user-picture {
+  width: 100px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
