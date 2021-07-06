@@ -5,22 +5,14 @@ import SignedOut from './SignedOut';
 import SignedIn from './SignedIn';
 import { useState } from 'react';
 import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
 
 const Navi = () => {
-
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const {isAuth} = useSelector(state => state.authState)
+   
     const history = useHistory();
     
-    
-    function handleSignOut(params) {
-        setIsAuthenticated(false)
-        history.push("/")
-    }
-    function handleSignIn(params) {
-        setIsAuthenticated(true)
-    }
-
-
+  
     const items = [
 
         {
@@ -54,7 +46,7 @@ const Navi = () => {
     ];
 
     const start = <img alt="logo" src="showcase/images/logo.png" onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} height="40" className="p-mr-2"></img>;
-    const end = <div>  {isAuthenticated ? <SignedIn signOut={handleSignOut} /> : <SignedOut signIn={handleSignIn} />
+    const end = <div>  {isAuth?.value? <SignedIn /> : <SignedOut/>
             
 } </div> 
    

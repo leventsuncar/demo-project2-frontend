@@ -86,10 +86,10 @@ export const UserUpdate = () => {
         },
         onSubmit: (data) => {
             setFormData(data);
-
+            
             userService.updateUser(id,data)
             setShowMessage(true);
-            
+            console.log(data)
             formik.resetForm();
         }
     });

@@ -83,7 +83,7 @@ const UserTable = () => {
         if (!checked) {
             return (
                 <React.Fragment>
-                    <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => editUser(rowData)} />
+                    <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-3" onClick={() => editUser(rowData)} />
                     <Button icon="pi pi-trash" className="p-button-rounded p-button-danger" onClick={() => { userService.deleteUser(rowData.id); userService.getActiveUsers().then(result => setUsers(result.data.data)) }} />
                 </React.Fragment>
             );
@@ -91,8 +91,8 @@ const UserTable = () => {
         else {
             return (
                 <React.Fragment>
-                    <Button icon="pi pi-pencil" className="p-button-rounded p-button-success " onClick={() => editUser(rowData)} />
-                    <Button icon="pi pi-trash" className="p-button-rounded p-button-danger" onClick={() => { userService.activateUser(rowData.id); userService.getUsers().then(result => setUsers(result.data.data)) }} />
+                    <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-3 " onClick={() => editUser(rowData)} />
+                    <Button icon="pi pi-trash" className="p-button-rounded p-button-primary" onClick={() => { userService.activateUser(rowData.id); userService.getUsers().then(result => setUsers(result.data.data)) }} />
                 </React.Fragment>)
 
         }

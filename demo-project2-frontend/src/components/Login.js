@@ -5,24 +5,41 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { useHistory } from 'react-router-dom'
 import { Password } from 'primereact/password';
-
+import { useDispatch } from 'react-redux';
 import { Dialog } from 'primereact/dialog';
 
 import { classNames } from 'primereact/utils';
 
 
 import UserService from '../services/userService';
+import { signInAction } from '../authentication/actions/authActions';
 
-export const Login = ({ signIn }) => {
+export const Login = () => {
 
-
+    const [apiSuccess, setApiSuccess] = useState({})
     const [showMessage, setShowMessage] = useState(false);
     const [formData, setFormData] = useState({});
     const [apiMessage, setApiMessage] = useState('')
     const history = useHistory();
     const userService = new UserService();
 
+    const dispatch = useDispatch();
 
+    
+
+    
+           
+      
+           
+       
+
+    
+
+    const handleSignIn = () => {
+
+        dispatch(signInAction());
+
+    }
 
 
 
@@ -57,6 +74,7 @@ export const Login = ({ signIn }) => {
         onSubmit: (data) => {
             setFormData(data);
             userService.signIn(formik.values.password, formik.values.userName).then((result) => setApiMessage(result.data.message));
+            userService.signIn(formik.values.password, formik.values.userName).then(result => setApiSuccess(result.data.success));
             setShowMessage(true);
 
             formik.resetForm();
@@ -68,7 +86,23 @@ export const Login = ({ signIn }) => {
         return isFormFieldValid(name) && <small className="p-error">{formik.errors[name]}</small>;
     };
 
-    const dialogFooter = <div className="p-d-flex p-jc-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => { setShowMessage(false); history.push("/table"); }} /></div>;
+    const dialogFooter = () =>
+    {
+        if(apiSuccess) {
+            
+            return <div className="p-d-flex p-jc-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => { setShowMessage(false); history.push("/"); handleSignIn(); }} /></div>;
+        } 
+        
+            else 
+        
+        {
+            return <div className="p-d-flex p-jc-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => { setShowMessage(false); }} /></div>;
+        }
+             
+       
+    }
+
+
 
 
     return (
@@ -107,7 +141,7 @@ export const Login = ({ signIn }) => {
 
 
 
-                        <Button type="submit" label="Giriş Yap"  className="p-mt-2" />
+                        <Button type="submit" label="Giriş Yap" className="p-mt-2" />
                     </form>
                 </div>
             </div>
