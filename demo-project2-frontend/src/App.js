@@ -7,6 +7,7 @@ import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import './App.css';
 import Dashboard from './layouts/Dashboard';
+import Navi from './components/Navi';
 
 
 const App = () => {
@@ -16,6 +17,8 @@ const App = () => {
 
   return (
     <div className="App">
+      <Navi/>
+
       <Dashboard />
     </div>
   );

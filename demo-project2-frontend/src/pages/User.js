@@ -17,17 +17,20 @@ const UserTable = () => {
     const dt = useRef(null);
     const [globalFilter, setGlobalFilter] = useState('');
 
-    const toast = useRef(null);
-    const [checked, setChecked] = useState(false);
+    const toast = useRef(null);const [checked, setChecked] = useState(false);
     const userService = new UserService();
-    const [checked1, setChecked1] = useState(false);
+    
 
 
     useEffect(() => {
 
-
-        userService.getUsers().then(result => setUsers(result.data.data));
-    }, []);
+        if(!checked){
+             userService.getActiveUsers().then(result => setUsers(result.data.data));
+        }else{
+           userService.getUsers().then(result => setUsers(result.data.data));
+        }
+        
+    }, [checked]);
 
 
 

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
@@ -8,19 +8,24 @@ import { Dialog } from 'primereact/dialog';
 import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
 import UserService from '../services/userService';
+import { useParams } from 'react-router-dom';
 
 
 
 
 
-export const UserRegister = () => {
+export const UserUpdate = () => {
 
+    let {id} = useParams();
+
+    const [user, setUser] = useState({})
     const [showMessage, setShowMessage] = useState(false);
     const [formData, setFormData] = useState({});
     const toast = useRef(null);
 
     const userService = new UserService();
 
+    
 
 
 
@@ -82,9 +87,9 @@ export const UserRegister = () => {
         onSubmit: (data) => {
             setFormData(data);
 
-            userService.addUser(data)
+            userService.updateUser(id,data)
             setShowMessage(true);
-
+            
             formik.resetForm();
         }
     });
@@ -201,5 +206,5 @@ export const UserRegister = () => {
 
 
 }
-
+export default UserUpdate
 

@@ -65,8 +65,26 @@
   margin: auto;
   
 }
+.my-form{
+  width: 80%;
+  height: 500px;
+  align-items: center;
+  margin: auto;
+  
+}
+
 
 .p-datatable-sm .user-picture {
   width: 100px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.navbar-button{
+
+  
+}
+.navi-buttons{
+  width: 100%;
+  margin-right: 20em;
+  
 }

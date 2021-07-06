@@ -2,36 +2,40 @@ import React, { useState, useEffect, useRef } from "react"
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import UserService from "../services/userService";
-import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext'
-import { Dropdown } from 'primereact/dropdown';
-import { InputSwitch } from 'primereact/inputswitch';
 import { Checkbox } from 'primereact/checkbox';
-import { filter } from "async";
+import { useHistory } from 'react-router-dom'
+import { Button } from 'primereact/button';
+
 
 
 const UserTable = () => {
 
     const [users, setUsers] = useState([]);
-    const [selectedStatus, setSelectedStatus] = useState(null);
-    const dt = useRef(null);
-    const [globalFilter, setGlobalFilter] = useState('');
+    const [userEditDialog, setUserEditDialog] = useState(false)
 
-    const toast = useRef(null);
+
+    const [globalFilter, setGlobalFilter] = useState('');
+    
+    
     const [checked, setChecked] = useState(false);
     const userService = new UserService();
-    const [checked1, setChecked1] = useState(false);
+    const history = useHistory();
 
 
     useEffect(() => {
 
+        if (!checked) {
+            userService.getActiveUsers().then(result => setUsers(result.data.data));
+        } else {
+            userService.getUsers().then(result => setUsers(result.data.data));
+        }
 
-        userService.getUsers().then(result => setUsers(result.data.data));
-    }, []);
+    }, [checked]);
 
 
 
-    
+
 
 
 
@@ -43,17 +47,18 @@ const UserTable = () => {
         else {
             return "İnaktif";
         }
-        
+
 
     }
+    const editUser = (rowData) => {
 
-    
+     return history.push("/updateUser/"+rowData.id)
 
-    const onStatusChange = (e) => {
-        dt.current.filter(e.value, 'status', 'equals');
-        setSelectedStatus(e.value);
     }
-    
+   
+
+
+
 
 
 
@@ -62,9 +67,9 @@ const UserTable = () => {
         <div className="table-header">
             <div> <h5>Silinmiş Kullanıcıları Göster</h5>
                 <div className="p-field-checkbox">
-        <Checkbox inputId="binary" checked={checked} onChange={e => setChecked(e.checked)} />
-        <label htmlFor="binary">{checked ? 'Gizle' : 'Göster'}</label>
-    </div>
+                    <Checkbox inputId="binary" checked={checked} onChange={e => setChecked(e.checked)} />
+                    <label htmlFor="binary">{checked ? 'Gizle' : 'Göster'}</label>
+                </div>
             </div>
             <span className="p-input-icon-left">
                 <i className="pi pi-search p-mt" />
@@ -74,42 +79,57 @@ const UserTable = () => {
     );
 
 
-    
-
-
-    const deneme = () =>{
-        if(checked){
-           let users = users.filter(user => user.isActive === true)
-
-           return users
+    const actionBodyTemplate = (rowData) => {
+        if (!checked) {
+            return (
+                <React.Fragment>
+                    <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => editUser(rowData)} />
+                    <Button icon="pi pi-trash" className="p-button-rounded p-button-danger" onClick={() => { userService.deleteUser(rowData.id); userService.getActiveUsers().then(result => setUsers(result.data.data)) }} />
+                </React.Fragment>
+            );
         }
-        else{
-            let users = users.filter(user => user.isActive === false)
+        else {
+            return (
+                <React.Fragment>
+                    <Button icon="pi pi-pencil" className="p-button-rounded p-button-success " onClick={() => editUser(rowData)} />
+                    <Button icon="pi pi-trash" className="p-button-rounded p-button-danger" onClick={() => { userService.activateUser(rowData.id); userService.getUsers().then(result => setUsers(result.data.data)) }} />
+                </React.Fragment>)
 
-            return users;
         }
-
-
     }
 
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
 
     return (
         <div>
             <div className="card ">
                 <DataTable className="p-datatable-sm p-mb-3 demo-container" resizableColumns value={users} dataKey="id" showGridlines header={header}
                     globalFilter={globalFilter} emptyMessage="Kullanıcı Bulunamadı"
-                    >
-                   
+                >
+
                     <Column field="userName" header="Kullanıcı Adı"></Column>
                     <Column field="firstName" header="Ad" ></Column>
                     <Column field="lastName" header="Soyad" ></Column>
                     <Column field="email" header="Email" ></Column>
                     <Column field="phoneNumber" header="Telefon Numarası" ></Column>
                     <Column field="isActive" header="Aktif mi?" body={isActiveBodyTemplate} ></Column>
+
+
                     <Column field="status" header="Yetki" ></Column>
-                    <Column field="password" header="Şifre" ></Column>
+
+                    <Column field="delete" body={actionBodyTemplate} ></Column>
 
                 </DataTable>
             </div >

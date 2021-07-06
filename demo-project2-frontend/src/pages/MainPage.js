@@ -1,19 +1,10 @@
 
-import React from "react";
+import React from 'react';
 
-const MainPage = () => {
+export const MainPage = () => {
 
-    return (
-    
-    <div>
+return (
         <h1>Ana Sayfa</h1>
-    </div>
-    
-    
     );
-
-
-
 }
-
-export default MainPage;
+export default MainPage
