@@ -119,9 +119,9 @@ export const UserUpdate = () => {
             <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
                 <div className="p-d-flex p-ai-center p-dir-col p-pt-6 p-px-3">
                     <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
-                    <h5>Kayıt Başarılı</h5>
+                    <h5>Güncelleme başarılı</h5>
                     <p style={{ lineHeight: 1.5, textIndent: '1rem' }}>
-                        Hesabın şu kullanıcı adıyla oluşturuldu: <b>{formData.userName}</b>
+                        Hesabının Bilgileri Değiştirildi: <b>{formData.userName}</b>
                     </p>
                 </div>
             </Dialog>
@@ -197,7 +197,7 @@ export const UserUpdate = () => {
                             <label htmlFor="accept" className={classNames({ 'p-error': isFormFieldValid('accept') })}>Kabul Ediyorum</label>
                         </div>
 
-                        <Button type="submit" label="Kayıt Ol" className="p-mt-2 p-mx-2 p-shadow-6" />
+                        <Button type="submit" label="Güncelle" className="p-mt-2 p-mx-2 p-shadow-6" />
                     </form>
                 </div>
             </div >
